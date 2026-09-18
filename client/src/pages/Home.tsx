@@ -224,7 +224,7 @@ function Evidence() {
 }
 
 function BuyerProfile() {
-  return <section className="profile-section section-light"><div className="section-shell"><SectionMeta code="SEC 10" children="VERIFIED BUYER PROFILE" /><div className="profile-heading"><h2>A buyer you<br /><em>can file.</em></h2><span className="profile-stamp">COLophon / 2026<br />VERIFIED BUYER</span></div><div className="profile-grid"><div><span>ENTITY NAME</span><strong>Unlimited Trends Ltd</strong></div><div><span>COMPANY REGISTRATION</span><strong>0958 4127</strong></div><div><span>VAT NUMBER</span><strong>GB 497163551</strong></div><div><span>REGISTERED ADDRESS</span><strong>Office No 23<br />Whitton, London / TW2 7LB / UK</strong></div><div><span>PURCHASING CONTACT</span><strong>Help@unlimitedtrends.co.uk</strong></div><div><span>REFERENCES</span><strong>Bank and trade references<br />available on request</strong></div><div><span>READINESS</span><strong>AML / KYC ready<br />Mutual NDA available</strong></div></div></div></section>;
+  return <section className="profile-section section-light"><div className="section-shell"><SectionMeta code="SEC 10" children="VERIFIED BUYER PROFILE" /><div className="profile-heading"><h2>A buyer you<br /><em>can file.</em></h2><span className="profile-stamp">COLophon / 2026<br />VERIFIED BUYER</span></div><div className="profile-grid"><div><span>ENTITY NAME</span><strong>Unlimited Trends Ltd</strong></div><div><span>COMPANY REGISTRATION</span><strong>11125418</strong></div><div><span>VAT NUMBER</span><strong>GB 497163551</strong></div><div><span>REGISTERED ADDRESS</span><strong>Office No 23<br />Whitton, London / TW2 7LB / UK</strong></div><div><span>PURCHASING CONTACT</span><strong>Help@unlimitedtrends.co.uk</strong></div><div><span>REFERENCES</span><strong>Bank and trade references<br />available on request</strong></div><div><span>READINESS</span><strong>AML / KYC ready<br />Mutual NDA available</strong></div></div></div></section>;
 }
 
 function Submission() {
@@ -242,7 +242,7 @@ function FAQ() {
 }
 
 function CloseSection() {
-  return <section className="close-section section-light"><div className="section-shell"><SectionMeta code="SEC 13" children="CLOSE / BUYING DESK" /><div className="close-copy"><h2>Have a lot?<br /><em>Start here.</em></h2><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div><footer className="footer-strip"><span>UNLIMITED TRENDS LTD / 0958 4127 / VAT GB 497163551</span><span>OFFICE NO 23, WHITTON, LONDON / TW2 7LB</span><span><a href="mailto:Help@unlimitedtrends.co.uk">HELP@UNLIMITEDTRENDS.CO.UK</a></span><span>PRIVACY / TERMS / UT-13-2026</span></footer></div></section>;
+  return <section className="close-section section-light"><div className="section-shell"><SectionMeta code="SEC 13" children="CLOSE / BUYING DESK" /><div className="close-copy"><h2>Have a lot?<br /><em>Start here.</em></h2><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div><footer className="footer-strip"><span>UNLIMITED TRENDS LTD / 11125418 / VAT GB 497163551</span><span>OFFICE NO 23, WHITTON, LONDON / TW2 7LB</span><span><a href="mailto:Help@unlimitedtrends.co.uk">HELP@UNLIMITEDTRENDS.CO.UK</a></span><span>PRIVACY / TERMS / UT-13-2026</span></footer></div></section>;
 }
 
 export default function Home() {
