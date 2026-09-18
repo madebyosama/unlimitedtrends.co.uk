@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -11,9 +11,6 @@ import {
   UploadCloud,
   X,
 } from "lucide-react";
-
-type Tier = "25–49" | "50–249" | "250–499" | "500+";
-type Grade = "A" | "B" | "C" | "D" | "BER";
 
 const images = {
   hero: "/manus-storage/hero-logic-board_ce3eac84.webp",
@@ -47,17 +44,6 @@ const faqRows = [
   ["05", "What if the intake differs from the manifest?", "We flag variance by serial and grade, share the reconciliation, and resolve against the written offer before the final settlement record is closed."],
   ["06", "Can you sign an NDA?", "Yes. Send the NDA with your manifest or ask for our standard mutual NDA before sharing sensitive lot information."],
 ];
-
-const tierData: Record<Tier, { units: number; low: number; high: number; review: string; window: string }> = {
-  "25–49": { units: 38, low: 6200, high: 11800, review: "24–48 HRS", window: "2–4 DAYS" },
-  "50–249": { units: 128, low: 19800, high: 41800, review: "24–48 HRS", window: "3–5 DAYS" },
-  "250–499": { units: 342, low: 58400, high: 121000, review: "36–72 HRS", window: "4–7 DAYS" },
-  "500+": { units: 620, low: 98000, high: 226000, review: "48–72 HRS", window: "5–10 DAYS" },
-};
-
-function formatGBP(value: number) {
-  return new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }).format(value);
-}
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -149,37 +135,25 @@ function IntakeStrip() {
 }
 
 function ManifestEstimator() {
-  const [tier, setTier] = useState<Tier>("50–249");
-  const [grade, setGrade] = useState<Grade>("B");
-  const [from, setFrom] = useState(tierData["50–249"]);
-  const data = tierData[tier];
-  useEffect(() => {
-    const id = window.setTimeout(() => setFrom(data), 120);
-    return () => window.clearTimeout(id);
-  }, [tier, data]);
-  const adjusted = useMemo(() => {
-    const factor: Record<Grade, number> = { A: 1.28, B: 1, C: 0.7, D: 0.42, BER: 0.12 };
-    return { low: data.low * factor[grade], high: data.high * factor[grade] };
-  }, [data, grade]);
   return (
     <section className="section-light estimator-section" id="estimator">
       <div className="section-shell estimator-shell">
-        <SectionMeta code="SEC 04" children="INTAKE ESTIMATOR" />
+        <SectionMeta code="SEC 04" children="NO LIMITS" />
         <div className="estimator-intro">
-          <div><div className="eyebrow">ROUGH-CUT / NOT A QUOTE</div><h2>Give us the<br /><em>shape</em> of the lot.</h2></div>
-          <p>Choose the nearest tier and dominant grade. The range is indicative only and tightens after serial-level review.</p>
+          <div><div className="eyebrow">ANY VOLUME / ANY VALUE</div><h2>No cap on<br /><em>size or spend.</em></h2></div>
+          <p>From a single unit to a full warehouse clearance — we price and buy at any volume, any value.</p>
         </div>
         <div className="estimator-panel">
           <div className="estimator-controls">
-            <div className="control-block"><span className="data-label">01 / LOT SIZE</span><div className="tier-list">{(Object.keys(tierData) as Tier[]).map((item) => <button key={item} className={tier === item ? "active" : ""} onClick={() => setTier(item)}>{item}<small>UNITS</small></button>)}</div></div>
-            <div className="control-block grade-block"><span className="data-label">02 / DOMINANT GRADE</span><div className="grade-list">{(["A", "B", "C", "D", "BER"] as Grade[]).map((item) => <button key={item} className={`${grade === item ? "active" : ""} ${item === "BER" ? "ber" : ""}`} onClick={() => setGrade(item)}>{item}</button>)}</div></div>
+            <div className="control-block"><span className="data-label">01 / LOT SIZE</span><div className="tier-list">{["1", "100", "1,000", "10,000+"].map((item) => <button key={item} className="active">{item}<small>UNITS</small></button>)}</div></div>
+            <div className="control-block grade-block"><span className="data-label">02 / GRADES ACCEPTED</span><div className="grade-list">{["A", "B", "C", "D", "BER"].map((item) => <button key={item} className={`active ${item === "BER" ? "ber" : ""}`}>{item}</button>)}</div></div>
             <div className="estimator-note"><TriangleAlert size={16} /><span>LOCKED / ERASED / MIXED<br />CONDITION CAN BE INCLUDED</span></div>
           </div>
           <div className="estimator-output">
-            <div className="output-cell"><span className="data-label">ESTIMATED UNIT COUNT</span><strong>{from.units}<small>×</small></strong><div className="voltage-line" /><span className="output-note">TIER / {tier} / GRADE {grade}</span></div>
-            <div className="output-cell"><span className="data-label">INDICATIVE VALUE RANGE</span><strong>{formatGBP(adjusted.low)}<small>—</small>{formatGBP(adjusted.high)}</strong><div className="voltage-line" /><span className="output-note">INDICATIVE ONLY · SUBJECT TO SERIAL-LEVEL REVIEW</span></div>
+            <div className="output-cell"><span className="data-label">MINIMUM ORDER</span><strong>None</strong><div className="voltage-line" /><span className="output-note">SINGLE UNIT OR FULL PALLET</span></div>
+            <div className="output-cell"><span className="data-label">MAXIMUM ORDER</span><strong>No cap</strong><div className="voltage-line" /><span className="output-note">WAREHOUSE CLEARANCES WELCOME</span></div>
           </div>
-          <div className="estimator-footer"><div className="tolerance-item"><span>REVIEW TIME</span><b>[ {data.review} ]</b></div><div className="tolerance-item"><span>COLLECTION WINDOW</span><b>[ {data.window} ]</b></div><div className="tolerance-item"><span>SETTLEMENT</span><b>[ BACS / COLLECTION ]</b></div><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div>
+          <div className="estimator-footer"><div className="tolerance-item"><span>REVIEW TIME</span><b>[ 24–72 HRS ]</b></div><div className="tolerance-item"><span>COLLECTION WINDOW</span><b>[ 2–10 DAYS ]</b></div><div className="tolerance-item"><span>SETTLEMENT</span><b>[ BACS / COLLECTION ]</b></div><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div>
         </div>
       </div>
     </section>
@@ -219,7 +193,7 @@ function Evidence() {
 }
 
 function BuyerProfile() {
-  return <section className="profile-section section-light"><div className="section-shell"><SectionMeta code="SEC 10" children="VERIFIED BUYER PROFILE" /><div className="profile-heading"><h2>A buyer you<br /><em>can file.</em></h2><span className="profile-stamp">COLophon / 2026<br />VERIFIED BUYER</span></div><div className="profile-grid"><div><span>ENTITY NAME</span><strong>Unlimited Trends Ltd</strong></div><div><span>COMPANY REGISTRATION</span><strong>0958 4127</strong></div><div><span>VAT NUMBER</span><strong>GB 218 6043 19</strong></div><div><span>REGISTERED ADDRESS</span><strong>Unit 14, Salford Trading Estate<br />Manchester M50 2NT / UK</strong></div><div><span>TRADING ADDRESS</span><strong>Dock 4, North West Logistics Park<br />Warrington WA5 3TP / UK</strong></div><div><span>PURCHASING CONTACT</span><strong>buying@unlimitedtrends.co.uk<br />+44 (0)161 410 4820</strong></div><div><span>REFERENCES</span><strong>Bank and trade references<br />available on request</strong></div><div><span>READINESS</span><strong>AML / KYC ready<br />Mutual NDA available</strong></div></div></div></section>;
+  return <section className="profile-section section-light"><div className="section-shell"><SectionMeta code="SEC 10" children="VERIFIED BUYER PROFILE" /><div className="profile-heading"><h2>A buyer you<br /><em>can file.</em></h2><span className="profile-stamp">COLophon / 2026<br />VERIFIED BUYER</span></div><div className="profile-grid"><div><span>ENTITY NAME</span><strong>Unlimited Trends Ltd</strong></div><div><span>COMPANY REGISTRATION</span><strong>0958 4127</strong></div><div><span>VAT NUMBER</span><strong>GB 497163551</strong></div><div><span>REGISTERED ADDRESS</span><strong>Office No 23<br />Whitton, London / TW2 7LB / UK</strong></div><div><span>PURCHASING CONTACT</span><strong>buying@unlimitedtrends.co.uk</strong></div><div><span>REFERENCES</span><strong>Bank and trade references<br />available on request</strong></div><div><span>READINESS</span><strong>AML / KYC ready<br />Mutual NDA available</strong></div></div></div></section>;
 }
 
 function Submission() {
@@ -237,7 +211,7 @@ function FAQ() {
 }
 
 function CloseSection() {
-  return <section className="close-section section-light"><div className="section-shell"><SectionMeta code="SEC 13" children="CLOSE / BUYING DESK" /><div className="close-copy"><h2>Have a lot?<br /><em>Start here.</em></h2><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div><footer className="footer-strip"><span>UNLIMITED TRENDS LTD / 0958 4127 / VAT GB 218 6043 19</span><span>UNIT 14, SALFORD TRADING ESTATE / MANCHESTER M50 2NT</span><span><a href="mailto:buying@unlimitedtrends.co.uk">BUYING@UNLIMITEDTRENDS.CO.UK</a> / +44 (0)161 410 4820</span><span>PRIVACY / TERMS / UT-13-2026</span></footer></div></section>;
+  return <section className="close-section section-light"><div className="section-shell"><SectionMeta code="SEC 13" children="CLOSE / BUYING DESK" /><div className="close-copy"><h2>Have a lot?<br /><em>Start here.</em></h2><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div><footer className="footer-strip"><span>UNLIMITED TRENDS LTD / 0958 4127 / VAT GB 497163551</span><span>OFFICE NO 23, WHITTON, LONDON / TW2 7LB</span><span><a href="mailto:buying@unlimitedtrends.co.uk">BUYING@UNLIMITEDTRENDS.CO.UK</a></span><span>PRIVACY / TERMS / UT-13-2026</span></footer></div></section>;
 }
 
 export default function Home() {
