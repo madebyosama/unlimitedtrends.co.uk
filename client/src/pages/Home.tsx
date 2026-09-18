@@ -16,11 +16,11 @@ type Tier = "25–49" | "50–249" | "250–499" | "500+";
 type Grade = "A" | "B" | "C" | "D" | "BER";
 
 const images = {
-  hero: "/manus-storage/hero-logic-board_ce3eac84.jpg",
-  ipads: "/manus-storage/ipad-mat_5c09d32c.jpg",
-  totes: "/manus-storage/tote-rack_4c1d8450.jpg",
-  monitor: "/manus-storage/diagnostic-monitor_326effeb.jpg",
-  pallet: "/manus-storage/pallet-floor_13e99a8e.jpg",
+  hero: "/manus-storage/hero-logic-board_ce3eac84.webp",
+  ipads: "/manus-storage/ipad-mat_5c09d32c.webp",
+  totes: "/manus-storage/tote-rack_4c1d8450.webp",
+  monitor: "/manus-storage/diagnostic-monitor_326effeb.webp",
+  pallet: "/manus-storage/pallet-floor_13e99a8e.webp",
 };
 
 const intakeRows = [
