@@ -2,12 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
-  Clock3,
   FileText,
   Menu,
   ShieldCheck,
-  Truck,
-  TriangleAlert,
   UploadCloud,
   X,
 } from "lucide-react";
@@ -91,7 +88,7 @@ function AppNav({ open, setOpen }: { open: boolean; setOpen: (value: boolean) =>
       <div className="nav-status"><span>UK / {time || "--:--:--"}</span><b>DESK OPEN</b></div>
       <a className="wordmark" href="#top" onClick={() => setOpen(false)} aria-label="Unlimited Trends home">UNLIMITED<span>·</span>TRENDS</a>
       <nav className={`nav-links ${open ? "nav-links-open" : ""}`}>
-        <a href="#estimator" onClick={() => setOpen(false)}>Estimator</a>
+        <a href="#intake-brief" onClick={() => setOpen(false)}>Intake brief</a>
         <a href="#procure" onClick={() => setOpen(false)}>What we procure</a>
         <a href="#process" onClick={() => setOpen(false)}>Process</a>
         <a href="#evidence" onClick={() => setOpen(false)}>Evidence</a>
@@ -134,26 +131,60 @@ function IntakeStrip() {
   );
 }
 
-function ManifestEstimator() {
+function IntakeBrief() {
   return (
-    <section className="section-light estimator-section" id="estimator">
-      <div className="section-shell estimator-shell">
-        <SectionMeta code="SEC 04" children="UNLIMITED" />
-        <div className="estimator-intro">
-          <div><div className="eyebrow">ANY VOLUME / ANY VALUE</div><h2>No cap on<br /><em>size or spend.</em></h2></div>
-          <p>From a single unit to a full warehouse clearance — we price and buy at any volume, any value.</p>
+    <section className="section-light intake-brief-section" id="intake-brief">
+      <div className="section-shell intake-brief-shell">
+        <SectionMeta code="SEC 04" children="INTAKE BRIEF" />
+        <div className="brief-heading">
+          <div>
+            <div className="eyebrow">ROUGH-CUT / BUYING DESK NOTES</div>
+            <h2>Show us the<br /><em>shape</em> of the lot.</h2>
+          </div>
+          <p>Not a calculator. A clear read on the information that turns a pile of Apple hardware into a lot we can actually buy.</p>
         </div>
-        <div className="estimator-panel">
-          <div className="estimator-controls">
-            <div className="control-block"><span className="data-label">01 / LOT SIZE</span><div className="tier-list">{["1", "100", "1,000", "10,000+"].map((item, i) => <button key={item} className={i === 0 || i === 3 ? "active" : ""}>{item}<small>UNITS</small></button>)}</div></div>
-            <div className="control-block grade-block"><span className="data-label">02 / GRADES ACCEPTED</span><div className="grade-list">{["A", "B", "C", "D", "BER"].map((item) => <button key={item} className={item === "A" || item === "BER" ? `active ${item === "BER" ? "ber" : ""}` : ""}>{item}</button>)}</div></div>
-            <div className="estimator-note"><TriangleAlert size={16} /><span>LOCKED / ERASED / MIXED<br />CONDITION CAN BE INCLUDED</span></div>
+        <div className="brief-ledger">
+          <div className="brief-lead-cell">
+            <span className="data-label">THE SHORT VERSION</span>
+            <strong>Volume is useful.<br /><em>Specificity is leverage.</em></strong>
+            <p>If you have the serials, the condition mix and a realistic collection point, you are already ahead of the queue.</p>
+            <RuleButton onClick={() => scrollToId("submission")}>Send the lot through</RuleButton>
           </div>
-          <div className="estimator-output">
-            <div className="output-cell"><span className="data-label">MINIMUM ORDER</span><strong>1<small>UNIT</small></strong><div className="voltage-line" /><span className="output-note">SINGLE UNIT OR FULL PALLET, SAME TERMS</span></div>
-            <div className="output-cell"><span className="data-label">MAXIMUM ORDER</span><strong>∞<small>NO CAP</small></strong><div className="voltage-line" /><span className="output-note">WAREHOUSE CLEARANCES WELCOME</span></div>
+          <div className="brief-gates">
+            <article className="brief-gate">
+              <span className="gate-index">01</span>
+              <div>
+                <span className="data-label">IDENTITY</span>
+                <h3>What is it?</h3>
+                <p>Model, storage, connectivity and serial. A manifest that names the hardware lets us move from “interesting” to “reviewable”.</p>
+                <div className="gate-mark">SERIAL / MODEL / SPEC</div>
+              </div>
+            </article>
+            <article className="brief-gate">
+              <span className="gate-index">02</span>
+              <div>
+                <span className="data-label">CONDITION</span>
+                <h3>What state is it in?</h3>
+                <p>A–D, BER, battery notes, screen damage and lock status. Mixed lots are fine when the variance is visible.</p>
+                <div className="gate-mark">GRADE / LOCK / FAULT</div>
+              </div>
+            </article>
+            <article className="brief-gate">
+              <span className="gate-index">03</span>
+              <div>
+                <span className="data-label">MOVEMENT</span>
+                <h3>How does it leave?</h3>
+                <p>Location, pallet or tote count and the collection window. We price the lot, then plan the handover around the real world.</p>
+                <div className="gate-mark">LOCATION / QTY / DATE</div>
+              </div>
+            </article>
           </div>
-          <div className="estimator-footer"><div className="tolerance-item"><Clock3 size={13} /><span>REVIEW TIME</span><b>[ 24–72 HRS ]</b></div><div className="tolerance-item"><Truck size={13} /><span>COLLECTION WINDOW</span><b>[ 2–10 DAYS ]</b></div><div className="tolerance-item"><span>SETTLEMENT</span><b>[ BACS / COLLECTION ]</b></div><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div>
+        </div>
+        <div className="manifest-specimen">
+          <div className="specimen-top"><span>MANIFEST / EXAMPLE ROW</span><span>UT-INTAKE-240 / 18.09.26</span></div>
+          <div className="specimen-row"><b>001</b><span>MacBook Pro 14</span><span>M1 Pro · 16GB · 512GB</span><span>GRADE B</span><span>UNLOCKED</span><span>MCR</span></div>
+          <div className="specimen-row specimen-faded"><b>002</b><span>iPad Air 4</span><span>64GB · Wi‑Fi</span><span>GRADE C</span><span>ERASED</span><span>LEEDS</span></div>
+          <div className="specimen-footer"><span>ONE GOOD ROW BEATS A VAGUE SPREADSHEET</span><span>CSV / XLSX / SERIAL-LEVEL REVIEW</span></div>
         </div>
       </div>
     </section>
@@ -217,7 +248,5 @@ function CloseSection() {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => { document.documentElement.style.scrollBehavior = "smooth"; return () => { document.documentElement.style.scrollBehavior = "auto"; }; }, []);
-  return <div className="site-frame"><AppNav open={menuOpen} setOpen={setMenuOpen} /><main><Hero /><IntakeStrip /><ManifestEstimator /><ProcurementIndex /><Capacity /><Process /><OperationGallery /><Evidence /><BuyerProfile /><Submission /><FAQ /><CloseSection /></main><a className="mobile-sticky-cta" href="#submission">SUBMIT A MANIFEST <ArrowUpRight size={16} /></a></div>;
+  return <div className="site-frame"><AppNav open={menuOpen} setOpen={setMenuOpen} /><main><Hero /><IntakeStrip /><IntakeBrief /><ProcurementIndex /><Capacity /><Process /><OperationGallery /><Evidence /><BuyerProfile /><Submission /><FAQ /><CloseSection /></main><a className="mobile-sticky-cta" href="#submission">SUBMIT A MANIFEST <ArrowUpRight size={16} /></a></div>;
 }
-
-export { Clock3, ShieldCheck, Truck };
