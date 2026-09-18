@@ -138,22 +138,22 @@ function ManifestEstimator() {
   return (
     <section className="section-light estimator-section" id="estimator">
       <div className="section-shell estimator-shell">
-        <SectionMeta code="SEC 04" children="NO LIMITS" />
+        <SectionMeta code="SEC 04" children="UNLIMITED" />
         <div className="estimator-intro">
           <div><div className="eyebrow">ANY VOLUME / ANY VALUE</div><h2>No cap on<br /><em>size or spend.</em></h2></div>
           <p>From a single unit to a full warehouse clearance — we price and buy at any volume, any value.</p>
         </div>
         <div className="estimator-panel">
           <div className="estimator-controls">
-            <div className="control-block"><span className="data-label">01 / LOT SIZE</span><div className="tier-list">{["1", "100", "1,000", "10,000+"].map((item) => <button key={item} className="active">{item}<small>UNITS</small></button>)}</div></div>
-            <div className="control-block grade-block"><span className="data-label">02 / GRADES ACCEPTED</span><div className="grade-list">{["A", "B", "C", "D", "BER"].map((item) => <button key={item} className={`active ${item === "BER" ? "ber" : ""}`}>{item}</button>)}</div></div>
+            <div className="control-block"><span className="data-label">01 / LOT SIZE</span><div className="tier-list">{["1", "100", "1,000", "10,000+"].map((item, i) => <button key={item} className={i === 0 || i === 3 ? "active" : ""}>{item}<small>UNITS</small></button>)}</div></div>
+            <div className="control-block grade-block"><span className="data-label">02 / GRADES ACCEPTED</span><div className="grade-list">{["A", "B", "C", "D", "BER"].map((item) => <button key={item} className={item === "A" || item === "BER" ? `active ${item === "BER" ? "ber" : ""}` : ""}>{item}</button>)}</div></div>
             <div className="estimator-note"><TriangleAlert size={16} /><span>LOCKED / ERASED / MIXED<br />CONDITION CAN BE INCLUDED</span></div>
           </div>
           <div className="estimator-output">
-            <div className="output-cell"><span className="data-label">MINIMUM ORDER</span><strong>None</strong><div className="voltage-line" /><span className="output-note">SINGLE UNIT OR FULL PALLET</span></div>
-            <div className="output-cell"><span className="data-label">MAXIMUM ORDER</span><strong>No cap</strong><div className="voltage-line" /><span className="output-note">WAREHOUSE CLEARANCES WELCOME</span></div>
+            <div className="output-cell"><span className="data-label">MINIMUM ORDER</span><strong>1<small>UNIT</small></strong><div className="voltage-line" /><span className="output-note">SINGLE UNIT OR FULL PALLET, SAME TERMS</span></div>
+            <div className="output-cell"><span className="data-label">MAXIMUM ORDER</span><strong>∞<small>NO CAP</small></strong><div className="voltage-line" /><span className="output-note">WAREHOUSE CLEARANCES WELCOME</span></div>
           </div>
-          <div className="estimator-footer"><div className="tolerance-item"><span>REVIEW TIME</span><b>[ 24–72 HRS ]</b></div><div className="tolerance-item"><span>COLLECTION WINDOW</span><b>[ 2–10 DAYS ]</b></div><div className="tolerance-item"><span>SETTLEMENT</span><b>[ BACS / COLLECTION ]</b></div><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div>
+          <div className="estimator-footer"><div className="tolerance-item"><Clock3 size={13} /><span>REVIEW TIME</span><b>[ 24–72 HRS ]</b></div><div className="tolerance-item"><Truck size={13} /><span>COLLECTION WINDOW</span><b>[ 2–10 DAYS ]</b></div><div className="tolerance-item"><span>SETTLEMENT</span><b>[ BACS / COLLECTION ]</b></div><RuleButton onClick={() => scrollToId("submission")}>Submit a manifest</RuleButton></div>
         </div>
       </div>
     </section>
